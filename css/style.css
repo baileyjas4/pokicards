@@ -287,3 +287,11 @@ body.dark-mode .poke-name {
 .type-ghost   { border: 3px solid #735797; background: linear-gradient(135deg, #BB88FF, #735797); }
 .type-dragon  { border: 3px solid #6F35FC; background: linear-gradient(135deg, #AA88FF, #6F35FC); }
 .type-ice     { border: 3px solid #96D9D6; background: linear-gradient(135deg, #BBFFFF, #96D9D6); }
+
+/* Dark mode type adjustments */
+body.dark-mode .type-bug      { border-color: #D4FF88; }
+body.dark-mode .type-fire     { border-color: #FFAA33; }
+body.dark-mode .type-water    { border-color: #88CCFF; }
+body.dark-mode .type-grass    { border-color: #AAFF55; }
+body.dark-mode .type-electric { border-color: #FFFF55; }
+/* --- Future feature: add more color to dark mode, IT'S 1:30 AM, we need to sleep*/
