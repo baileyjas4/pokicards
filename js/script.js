@@ -81,6 +81,81 @@ async function getPokemon() {
 }
 
 // ============================================
+// RENDER CARDS VIEW
+// ============================================
+function renderCards(list) {
+    container.innerHTML = ""
+
+    if (list.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1/-1 text-align: center padding: 40px color: var(--text-color)">
+                <p style="font-size: 1.5rem">No Pokémon found matching your search!</p>
+                <p style="margin-top: 10px">Try a different name or type filter.</p>
+            </div>
+        `
+        return
+    }
+
+    list.forEach(p => {
+        const types = p.types.map(t => t.type.name)
+        const primaryType = types[0]
+        const sprite = p.sprites.other["official-artwork"]?.front_default || p.sprites.front_default
+        const animatedSprite = p.sprites.versions?.['generation-v']?.['black-white']?.animated?.front_default || sprite
+
+        const card = document.createElement("div")
+        card.classList.add("card")
+        card.dataset.pokemonId = p.id
+        card.dataset.pokemonName = p.name
+
+        card.innerHTML = `
+            <div class="inner-card type-${primaryType}">
+                <div class="card-front">
+                    <img src="${sprite}" data-static="${sprite}" data-animated="${animatedSprite}" alt="${p.name}">
+                    <div class="poke-name">${p.name}</div>
+                    <div class="type-label">${types.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(" / ")}</div>
+                </div>
+                <div class="card-back">
+                    <div class="poke-name">${p.name}</div>
+                    <p><strong>ID:</strong> #${String(p.id).padStart(3, '0')}</p>
+                    <p><strong>Height:</strong> ${p.height}</p>
+                    <p><strong>Weight:</strong> ${p.weight}</p>
+                    <p><strong>Base XP:</strong> ${p.base_experience || 'N/A'}</p>
+                    <div class="type-label">Type: ${types.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(" / ")}</div>
+                    <img src="${animatedSprite}" class="back-sprite" alt="${p.name}">
+                </div>
+            </div>
+        `
+        container.appendChild(card)
+
+        const img = card.querySelector("img")
+        const innerCard = card.querySelector(".inner-card")
+
+        card.addEventListener("mouseenter", () => {
+            if (!innerCard.classList.contains("flipped")) {
+                img.src = img.dataset.animated
+            }
+        })
+
+        card.addEventListener("mouseleave", () => {
+            if (!innerCard.classList.contains("flipped")) {
+                img.src = img.dataset.static
+            }
+        })
+
+        card.addEventListener("click", () => {
+            innerCard.classList.toggle("flipped")
+
+            if (innerCard.classList.contains("flipped")) {
+                const audio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${p.name}.mp3`)
+                audio.volume = 0.3
+                audio.play().catch(err => {
+                    console.log(`Could not play cry for ${p.name}:`, err)
+                })
+            }
+        })
+    })
+}
+// ============================================
 // RENDER LIST VIEW
 // ============================================
 function renderListView(list) {
