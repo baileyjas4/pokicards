@@ -46,6 +46,41 @@ themeToggle.addEventListener("click", () => {
 })
 
 // ============================================
+// FETCH POKÉMON
+// ============================================
+async function getPokemon() {
+    loadingBox.classList.remove("hidden")
+    errorBox.classList.add("hidden")
+
+    try {
+        const requests = []
+        for (let i = 1; i <= 150; i++) {
+            requests.push(fetch(`https://pokeapi.co/api/v2/pokemon/${i}`))
+        }
+
+        const responses = await Promise.all(requests)
+
+        const failedRequests = responses.filter(r => !r.ok)
+        if (failedRequests.length > 0) {
+            throw new Error(`Failed to fetch ${failedRequests.length} Pokemon`)
+        }
+
+        const pokemon = await Promise.all(responses.map(r => r.json()))
+
+        allPokemon = pokemon
+        renderCards(allPokemon)
+        populateTypeFilter(allPokemon)
+
+    } catch (err) {
+        console.error('Error fetching Pokemon:', err)
+        errorBox.classList.remove("hidden")
+        errorBox.textContent = `⚠ Failed to load Pokémon: ${err.message}`
+    } finally {
+        loadingBox.classList.add("hidden")
+    }
+}
+
+// ============================================
 // RENDER LIST VIEW
 // ============================================
 function renderListView(list) {
@@ -161,3 +196,56 @@ function filterPokemon() {
 
 searchInput.addEventListener("input", filterPokemon)
 typeFilter.addEventListener("change", filterPokemon)
+
+// ============================================
+// KEYBOARD SHORTCUTS
+// ============================================
+document.addEventListener('keydown', (e) => {
+    // Press 'T' to toggle theme
+    if (e.key.toLowerCase() === 't' && !e.ctrlKey && !e.metaKey) {
+        if (document.activeElement !== searchInput) {
+            themeToggle.click()
+        }
+    }
+
+    // Press 'V' to toggle view
+    if (e.key.toLowerCase() === 'v' && !e.ctrlKey && !e.metaKey) {
+        if (document.activeElement !== searchInput) {
+            viewToggle.click()
+        }
+    }
+
+    // Press '/' to focus search
+    if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault()
+        searchInput.focus()
+    }
+
+    // Press Escape to clear search
+    if (e.key === 'Escape') {
+        searchInput.value = ''
+        typeFilter.value = ''
+        filterPokemon()
+        searchInput.blur()
+    }
+})
+
+// ============================================
+// INITIALIZE APP
+// ============================================
+function initializeApp() {
+    console.log('Poki Cards initialized!')
+    console.log('Tips:')
+    console.log('  - Press "T" to toggle theme')
+    console.log('  - Press "V" to toggle view (cards/list)')
+    console.log('  - Press "/" to search')
+    console.log('  - Press "Esc" to clear')
+    initializeTheme()
+    getPokemon()
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp)
+} else {
+    initializeApp()
+}
