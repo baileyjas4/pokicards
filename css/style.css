@@ -226,3 +226,43 @@ body.dark-mode .poke-name {
 .hidden { display: none; }
 
 /* ------------------ POKÉBALL SPINNER ------------------ */
+.spinner-container { margin-top: 30px; text-align: center; position: relative; }
+.pokeball-spinner {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto 15px auto;
+    border: 8px solid black;
+    background: white;
+    animation: spin 0.9s infinite linear, bounce 1s infinite ease-in-out;
+    box-shadow: 0 0 20px rgba(255,255,255,0.6);
+}
+
+.pokeball-spinner::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background: #EF5350;
+    top: 0;
+    left: 0;
+    border-bottom: 8px solid black;
+}
+
+.pokeball-spinner::after {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border: 6px solid black;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px white, 0 0 20px #FFCB05;
+}
+
+@keyframes spin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
