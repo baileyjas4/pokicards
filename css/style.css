@@ -268,3 +268,22 @@ body.dark-mode .poke-name {
 @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* ------------------ POKÉMON TYPE COLORS ------------------ */
+/* Light mode uses vibrant colors, dark mode uses brighter outlines */
+.type-bug     { border: 3px solid #A6B91A; background: linear-gradient(135deg, #CCFF88, #A6B91A); }
+.type-fire    { border: 3px solid #EE8130; background: linear-gradient(135deg, #FFCC88, #EE8130); }
+.type-water   { border: 3px solid #6390F0; background: linear-gradient(135deg, #88CCFF, #6390F0); }
+.type-grass   { border: 3px solid #7AC74C; background: linear-gradient(135deg, #BBFF88, #7AC74C); }
+.type-electric{ border: 3px solid #F7D02C; background: linear-gradient(135deg, #FFF88C, #F7D02C); }
+.type-normal  { border: 3px solid #A8A77A; background: linear-gradient(135deg, #DDCCAA, #A8A77A); }
+.type-psychic { border: 3px solid #F95587; background: linear-gradient(135deg, #FF99CC, #F95587); }
+.type-fighting{ border: 3px solid #C22E28; background: linear-gradient(135deg, #FF8888, #C22E28); }
+.type-fairy   { border: 3px solid #D685AD; background: linear-gradient(135deg, #FFBBEE, #D685AD); }
+.type-flying  { border: 3px solid #A98FF3; background: linear-gradient(135deg, #CCBBFF, #A98FF3); }
+.type-rock    { border: 3px solid #B6A136; background: linear-gradient(135deg, #DDD88B, #B6A136); }
+.type-steel   { border: 3px solid #B7B7CE; background: linear-gradient(135deg, #DDDDFF, #B7B7CE); }
+.type-ground  { border: 3px solid #E2BF65; background: linear-gradient(135deg, #FFEE99, #E2BF65); }
+.type-poison  { border: 3px solid #A33EA1; background: linear-gradient(135deg, #DD88DD, #A33EA1); }
+.type-dark    { border: 3px solid #705746; background: linear-gradient(135deg, #AA8888, #705746); }
+.type-ghost   { border: 3px solid #735797; background: linear-gradient(135deg, #BB88FF, #735797); }
+.type-dragon  { border: 3px solid #6F35FC; background: linear-gradient(135deg, #AA88FF, #6F35FC); }
+.type-ice     { border: 3px solid #96D9D6; background: linear-gradient(135deg, #BBFFFF, #96D9D6); }
