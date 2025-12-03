@@ -19,3 +19,58 @@ body.dark-mode {
     --input-focus: #FFD700;
     --error-bg: #FF5555;
 }
+
+/* ------------------ GLOBAL ------------------ */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    text-align: center;
+    color: var(--text-color);
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+}
+
+.title {
+    margin: 30px 0;
+    font-size: 3rem;
+    color: white;
+    text-shadow: 3px 3px #1A1A1A;
+}
+
+/* --- toggle --- */
+.mode-toggle {
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 2px solid var(--input-border);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: 0.3s;
+}
+
+.mode-toggle:hover {
+    background-color: var(--input-focus);
+    color: #fff;
+    border-color: var(--input-focus);
+}
+
+/* --- search box styling --- */
+.search-box {
+    padding: 10px 15px;
+    width: 260px;
+    border-radius: 10px;
+    margin: 10px 5px;
+    border: 3px solid var(--input-border);
+    outline: none;
+    transition: 0.2s;
+    font-size: 1.1rem;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.search-box:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 10px var(--input-focus);
+}
