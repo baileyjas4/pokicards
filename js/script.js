@@ -46,7 +46,7 @@ themeToggle.addEventListener("click", () => {
 })
 
 // ============================================
-// RENDER LIST VIEW (PokéDem style)
+// RENDER LIST VIEW
 // ============================================
 function renderListView(list) {
     listContainer.innerHTML = ""
@@ -109,3 +109,55 @@ function renderListView(list) {
         listContainer.appendChild(listItem)
     })
 }
+
+// ============================================
+// POPULATE TYPE FILTER
+// ============================================
+function populateTypeFilter(pokemonList) {
+    typeFilter.innerHTML = '<option value="">Filter by Type</option>'
+
+    const types = new Set()
+    pokemonList.forEach(p => p.types.forEach(t => types.add(t.type.name)))
+
+    const sortedTypes = Array.from(types).sort()
+
+    sortedTypes.forEach(type => {
+        const option = document.createElement("option")
+        option.value = type
+        option.textContent = type.charAt(0).toUpperCase() + type.slice(1)
+        typeFilter.appendChild(option)
+    })
+}
+
+// ============================================
+// FILTER FUNCTION
+// ============================================
+function filterPokemon() {
+    const text = searchInput.value.toLowerCase().trim()
+    const selectedType = typeFilter.value
+
+    let filtered = allPokemon
+
+    if (text) {
+        filtered = filtered.filter(p =>
+            p.name.toLowerCase().includes(text) ||
+            p.id.toString().includes(text)
+        )
+    }
+
+    if (selectedType) {
+        filtered = filtered.filter(p =>
+            p.types.some(t => t.type.name === selectedType)
+        )
+    }
+
+    // Render appropriate view
+    if (currentView === 'cards') {
+        renderCards(filtered)
+    } else {
+        renderListView(filtered)
+    }
+}
+
+searchInput.addEventListener("input", filterPokemon)
+typeFilter.addEventListener("change", filterPokemon)
