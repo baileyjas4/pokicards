@@ -4,21 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/script.js"></script>
+    <script src="./js/script.js" defer></script>
     <title>Poki Cards</title>
 </head>
 <body>
-    <h1 class="title">Pokédex Dashboard</h1>
+    <!-- Header with title and toggle buttons -->
+    <header class="main-header">
+        <h1 class="title">Pokédex Dashboard</h1>
+        <!-- Theme toggle button (PokéDem style with Pokeball icons) -->
+        <button id="theme-toggle" class="icon-toggle theme-toggle" aria-label="Toggle theme">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png" alt="Toggle theme" class="toggle-icon" id="theme-icon">
+        </button>
+        <!-- View toggle button (switch between cards and list view) -->
+        <button id="view-toggle" class="icon-toggle view-toggle" aria-label="Toggle view">
+            <span class="toggle-icon view-icon" id="view-icon">🎴</span>
+        </button>
+    </header>
 
-<!-- Dark/Light Mode Toggle -->
-<button id="mode-toggle" class="mode-toggle">Switch to Dark Mode</button>
-
-<!-- Search and Type Filter -->
-<input type="text" id="search" placeholder="Search Pokémon..." class="search-box">
-<select id="type-filter" class="search-box">
-    <option value="">Filter by Type</option>
-</select>
-
+    <!-- Search and Type Filter -->
+    <div class="controls-container">
+        <input type="text" id="search" placeholder="Search Pokémon..." class="search-box">
+        <select id="type-filter" class="search-box">
+            <option value="">Filter by Type</option>
+        </select>
+    </div>
 <!-- Loading Spinner -->
 <div id="loading" class="spinner-container hidden">
     <div class="pokeball-spinner"></div>
@@ -28,10 +37,14 @@
 <!-- Error Message -->
 <div id="error" class="error hidden">⚠ Failed to load Pokémon. Try again!</div>
 
-<!-- Pokédex Container -->
+<!-- Pokédex Wrapper -->
 <div id="pokedex-wrapper">
+    <!-- Card Grid View (default) -->
     <div id="card-container" class="card-container"></div>
+    <!-- List View (PokéDem style - initially hidden) -->
+    <div id="list-view" class="list-view hidden">
+        <div id="list-container" class="list-container"></div>
+    </div>
 </div>
-
 </body>
 </html>
