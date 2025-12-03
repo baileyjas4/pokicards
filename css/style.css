@@ -225,3 +225,73 @@ body.dark-mode .poke-name {
 
 .hidden { display: none; }
 
+/* ------------------ POKÉBALL SPINNER ------------------ */
+.spinner-container { margin-top: 30px; text-align: center; position: relative; }
+.pokeball-spinner {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto 15px auto;
+    border: 8px solid black;
+    background: white;
+    animation: spin 0.9s infinite linear, bounce 1s infinite ease-in-out;
+    box-shadow: 0 0 20px rgba(255,255,255,0.6);
+}
+
+.pokeball-spinner::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background: #EF5350;
+    top: 0;
+    left: 0;
+    border-bottom: 8px solid black;
+}
+
+.pokeball-spinner::after {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border: 6px solid black;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px white, 0 0 20px #FFCB05;
+}
+
+@keyframes spin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* ------------------ POKÉMON TYPE COLORS ------------------ */
+/* Light mode uses vibrant colors, dark mode uses brighter outlines */
+.type-bug     { border: 3px solid #A6B91A; background: linear-gradient(135deg, #CCFF88, #A6B91A); }
+.type-fire    { border: 3px solid #EE8130; background: linear-gradient(135deg, #FFCC88, #EE8130); }
+.type-water   { border: 3px solid #6390F0; background: linear-gradient(135deg, #88CCFF, #6390F0); }
+.type-grass   { border: 3px solid #7AC74C; background: linear-gradient(135deg, #BBFF88, #7AC74C); }
+.type-electric{ border: 3px solid #F7D02C; background: linear-gradient(135deg, #FFF88C, #F7D02C); }
+.type-normal  { border: 3px solid #A8A77A; background: linear-gradient(135deg, #DDCCAA, #A8A77A); }
+.type-psychic { border: 3px solid #F95587; background: linear-gradient(135deg, #FF99CC, #F95587); }
+.type-fighting{ border: 3px solid #C22E28; background: linear-gradient(135deg, #FF8888, #C22E28); }
+.type-fairy   { border: 3px solid #D685AD; background: linear-gradient(135deg, #FFBBEE, #D685AD); }
+.type-flying  { border: 3px solid #A98FF3; background: linear-gradient(135deg, #CCBBFF, #A98FF3); }
+.type-rock    { border: 3px solid #B6A136; background: linear-gradient(135deg, #DDD88B, #B6A136); }
+.type-steel   { border: 3px solid #B7B7CE; background: linear-gradient(135deg, #DDDDFF, #B7B7CE); }
+.type-ground  { border: 3px solid #E2BF65; background: linear-gradient(135deg, #FFEE99, #E2BF65); }
+.type-poison  { border: 3px solid #A33EA1; background: linear-gradient(135deg, #DD88DD, #A33EA1); }
+.type-dark    { border: 3px solid #705746; background: linear-gradient(135deg, #AA8888, #705746); }
+.type-ghost   { border: 3px solid #735797; background: linear-gradient(135deg, #BB88FF, #735797); }
+.type-dragon  { border: 3px solid #6F35FC; background: linear-gradient(135deg, #AA88FF, #6F35FC); }
+.type-ice     { border: 3px solid #96D9D6; background: linear-gradient(135deg, #BBFFFF, #96D9D6); }
+
+/* Dark mode type adjustments */
+body.dark-mode .type-bug      { border-color: #D4FF88; }
+body.dark-mode .type-fire     { border-color: #FFAA33; }
+body.dark-mode .type-water    { border-color: #88CCFF; }
+body.dark-mode .type-grass    { border-color: #AAFF55; }
+body.dark-mode .type-electric { border-color: #FFFF55; }
+/* --- Future feature: add more color to dark mode, IT'S 1:30 AM, we need to sleep*/
