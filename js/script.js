@@ -44,3 +44,68 @@ themeToggle.addEventListener("click", () => {
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark'
     applyTheme(newTheme)
 })
+
+// ============================================
+// RENDER LIST VIEW (PokéDem style)
+// ============================================
+function renderListView(list) {
+    listContainer.innerHTML = ""
+
+    if (list.length === 0) {
+        listContainer.innerHTML = `
+            <div class="no-results">
+                <p style="font-size: 1.5rem">No Pokémon found matching your search!</p>
+                <p style="margin-top: 10px">Try a different name or type filter.</p>
+            </div>
+        `
+        return
+    }
+
+    list.forEach(p => {
+        const types = p.types.map(t => t.type.name)
+        const sprite = p.sprites.other["official-artwork"]?.front_default || p.sprites.front_default
+
+        const listItem = document.createElement("div")
+        listItem.classList.add("list-item")
+        listItem.dataset.pokemonId = p.id
+
+        listItem.innerHTML = `
+            <div class="list-item-content">
+                <div class="list-item-image">
+                    <img src="${sprite}" alt="${p.name}">
+                </div>
+                <div class="list-item-info">
+                    <div class="list-item-header">
+                        <span class="list-item-id">#${String(p.id).padStart(3, '0')}</span>
+                        <span class="list-item-name">${p.name}</span>
+                    </div>
+                    <div class="list-item-types">
+                        ${types.map(t => `<span class="type-badge type-${t}">${t.charAt(0).toUpperCase() + t.slice(1)}</span>`).join('')}
+                    </div>
+                    <div class="list-item-stats">
+                        <span><strong>Height:</strong> ${p.height}</span>
+                        <span><strong>Weight:</strong> ${p.weight}</span>
+                        <span><strong>Base XP:</strong> ${p.base_experience || 'N/A'}</span>
+                    </div>
+                </div>
+            </div>
+        `
+
+        // Click to play cry
+        listItem.addEventListener('click', () => {
+            const audio = new Audio(`https://play.pokemonshowdown.com/audio/cries/${p.name}.mp3`)
+            audio.volume = 0.3
+            audio.play().catch(err => {
+                console.log(`Could not play cry for ${p.name}:`, err)
+            })
+
+            // Highlight effect
+            listItem.style.transform = 'scale(1.02)'
+            setTimeout(() => {
+                listItem.style.transform = 'scale(1)'
+            }, 200)
+        })
+
+        listContainer.appendChild(listItem)
+    })
+}
