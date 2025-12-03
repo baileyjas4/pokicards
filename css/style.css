@@ -1,0 +1,21 @@
+/* ------------------ CSS VARIABLES FOR LIGHT/DARK MODE ------------------ */
+:root {
+    --bg-gradient: linear-gradient(135deg, #FFCB05 0%, #EF5350 50%, #3B4CCA 100%);
+    --text-color: #1A1A1A;
+    --card-bg: #fff;
+    --card-back-bg: #f0f0f0;
+    --input-border: #3B4CCA;
+    --input-focus: #FFCB05;
+    --error-bg: #EF5350;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    --bg-gradient: linear-gradient(135deg, #1e1e1e 0%, #3B3B3B 50%, #0D0D0D 100%);
+    --text-color: #f0f0f0;
+    --card-bg: #2b2b2b;
+    --card-back-bg: #3a3a3a;
+    --input-border: #888;
+    --input-focus: #FFD700;
+    --error-bg: #FF5555;
+}
