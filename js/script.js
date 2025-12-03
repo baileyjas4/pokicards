@@ -1,3 +1,5 @@
+// Cache all DOM elements in one object
+
 const container = document.getElementById("card-container")
 const listContainer = document.getElementById("list-container")
 const listView = document.getElementById("list-view")
@@ -9,7 +11,9 @@ const themeToggle = document.getElementById("theme-toggle")
 const viewToggle = document.getElementById("view-toggle")
 
 let allPokemon = []
-let currentView = 'cards' // 'cards' or 'list'
+let currentOffset = 0
+let displayedPokemon = []
+
 
 // ============================================
 // DARK/LIGHT MODE (PokéDem style with Pokeball icons)
@@ -45,6 +49,52 @@ themeToggle.addEventListener("click", () => {
     applyTheme(newTheme)
 })
 
+// // ============================================
+// // VIEW TOGGLE (PokéDem style - cards vs list)
+// // ============================================
+// function toggleView() {
+//     const viewIcon = document.getElementById('view-icon')
+
+//     if (currentView === 'cards') {
+//         // Switch to list view
+//         currentView = 'list'
+//         container.classList.add('hidden')
+//         listView.classList.remove('hidden')
+//         viewIcon.textContent = 'pokdex' // List icon
+//         renderListView(allPokemon)
+//     } else {
+//         // Switch back to cards view
+//         currentView = 'cards'
+//         container.classList.remove('hidden')
+//         listView.classList.add('hidden')
+//         viewIcon.textContent = 'cards' // Card icon
+//     }
+// }
+
+function filterAndSort() {
+    const search = elements.searchInput.value.toLowerCase().trim()
+    const type = elements.typeFilter.value.toLowerCase()
+
+    // Filter
+    displayedPokemon = allPokemon.filter(p =>
+        (!search || p.name.toLowerCase().includes(search) || p.id.toString().includes(search)) &&
+        (!type || p.types.includes(type))
+    )
+
+    // Sort
+    const sortMap = {
+        'id-asc': (a, b) => a.id - b.id,
+        'id-desc': (a, b) => b.id - a.id,
+        'name-asc': (a, b) => a.name.localeCompare(b.name),
+        'name-desc': (a, b) => b.name.localeCompare(a.name)
+    }
+    displayedPokemon.sort(sortMap[elements.sortSelect.value])
+
+    render(displayedPokemon)
+}
+
+
+viewToggle.addEventListener('click', toggleView)
 // ============================================
 // FETCH POKÉMON
 // ============================================

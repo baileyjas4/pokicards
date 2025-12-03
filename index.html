@@ -1,50 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/script.js" defer></script>
-    <title>Poki Cards</title>
-</head>
-<body>
-    <!-- Header with title and toggle buttons -->
-    <header class="main-header">
-        <h1 class="title">Pokédex Dashboard</h1>
-        <!-- Theme toggle button (PokéDem style with Pokeball icons) -->
-        <button id="theme-toggle" class="icon-toggle theme-toggle" aria-label="Toggle theme">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png" alt="Toggle theme" class="toggle-icon" id="theme-icon">
-        </button>
-        <!-- View toggle button (switch between cards and list view) -->
-        <button id="view-toggle" class="icon-toggle view-toggle" aria-label="Toggle view">
-            <span class="toggle-icon view-icon" id="view-icon">🎴</span>
-        </button>
-    </header>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./css/style.css" />
+		<script src="./js/pokedex.js"></script>
+        <!-- Chart.js library for radar charts -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Search and Type Filter -->
-    <div class="controls-container">
-        <input type="text" id="search" placeholder="Search Pokémon..." class="search-box">
-        <select id="type-filter" class="search-box">
-            <option value="">Filter by Type</option>
-        </select>
-    </div>
-<!-- Loading Spinner -->
-<div id="loading" class="spinner-container hidden">
-    <div class="pokeball-spinner"></div>
-    <p>Loading Pokémon...</p>
-</div>
+		<script src="./js/script.js" defer></script>
+		<title>Poki Cards</title>
+	</head>
+	<body>
+		<!-- Header with title and toggle buttons -->
+		<header class="main-header">
+			<h1 class="title">Pokédex Dashboard</h1>
+			<!-- Theme toggle button (PokéDem style with Pokeball icons) -->
+			<button
+				id="theme-toggle"
+				class="icon-toggle theme-toggle"
+				aria-label="Toggle theme"
+			>
+				<img
+					src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png"
+					alt="Toggle theme"
+					class="toggle-icon"
+					id="theme-icon"
+				/>
+			</button>
+				<!-- View toggle (cards/pokedex) -->
+				<button id="view-toggle" class="view-toggle icon-toggle theme-toggle" aria-label="Toggle view">
+					<img
+						src="./images/pd-icon.png"
+						alt="Toggle view"
+						class="view-icon toggle-icon"
+						id="view-icon"
+					/>
+				</button>
+		</header>
 
-<!-- Error Message -->
-<div id="error" class="error hidden">⚠ Failed to load Pokémon. Try again!</div>
+		<!-- Search and Type Filter -->
+		<div class="controls-container">
+			<input
+				type="text"
+				id="search"
+				placeholder="Search Pokémon..."
+				class="search-box"
+			/>
+			<select id="type-filter" class="search-box">
+				<option value="">Filter by Type</option>
+			</select>
+		</div>
+		<!-- Loading Spinner -->
+		<div id="loading" class="spinner-container hidden">
+			<div class="pokeball-spinner"></div>
+			<p>Loading Pokémon...</p>
+		</div>
 
-<!-- Pokédex Wrapper -->
-<div id="pokedex-wrapper">
-    <!-- Card Grid View (default) -->
-    <div id="card-container" class="card-container"></div>
-    <!-- List View (PokéDem style - initially hidden) -->
-    <div id="list-view" class="list-view hidden">
-        <div id="list-container" class="list-container"></div>
-    </div>
-</div>
-</body>
+		<!-- Error Message -->
+		<div id="error" class="error hidden">
+			⚠ Failed to load Pokémon. Try again!
+		</div>
+
+		<!-- Pokédex Wrapper -->
+		<div id="pokedex-wrapper">
+			<!-- Card Grid View (default) -->
+			<div id="card-container" class="card-container"></div>
+			<!-- List View (PokéDem style - initially hidden) -->
+			<div id="list-view" class="list-view hidden">
+				<div id="list-container" class="list-container"></div>
+			</div>
+		</div>
+
+		<!-- Pokedex carousel view -->
+		<div id="pokedex-view" class="pokedex-view hidden">
+			<div class="pokedex-device">
+				<img
+					src="./images/pokedex-tr-bg.png"
+					alt="Pokédex"
+					class="pokedex-bg"
+				/>
+				<div class="pokedex-screen">
+					<div class="carousel-container">
+						<button class="carousel-btn prev-btn" id="prev-pokemon">‹</button>
+						<div class="carousel-content">
+							<div class="pokemon-display">
+								<img src="" alt="" class="carousel-pokemon-image" id="carousel-image"/>
+								<h2 class="carousel-pokemon-name" id="carousel-name"></h2>
+								<p class="carousel-pokemon-id" id="carousel-id"></p>
+								<div class="carousel-pokemon-types" id="carousel-types"></div>
+							</div>
+						</div>
+						<button class="carousel-btn next-btn" id="next-pokemon">›</button>
+					</div>
+					<div class="carousel-stats" id="carousel-stats"></div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
