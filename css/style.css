@@ -192,3 +192,22 @@ body.dark-mode #pokedex-wrapper {
 }
 
 /* ------------------ POKÉMON INFO ------------------ */
+.poke-name {
+    font-size: 1.2rem;
+    margin-top: 8px;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: #EF5350;
+}
+
+body.dark-mode .poke-name {
+    color: #FFD700;
+}
+
+.type-label {
+    margin-top: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
