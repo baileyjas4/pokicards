@@ -74,3 +74,120 @@ body {
     border-color: var(--input-focus);
     box-shadow: 0 0 10px var(--input-focus);
 }
+
+/* ------------------ POKÉDEX WRAPPER ------------------ */
+#pokedex-wrapper {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 5px solid #3B4CCA;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+body.dark-mode #pokedex-wrapper {
+    background: rgba(30,30,30,0.9);
+    border-color: #FFD700;
+}
+
+/* ---### CARD STYLING ###--- */
+/* ------------------ CARD GRID ------------------ */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 40px;
+    padding: 10px;
+}
+
+/* ------------------ CARD BASE ------------------ */
+.card {
+    perspective: 1200px;
+    transition: transform 0.25s ease, filter 0.25s ease;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    filter: brightness(1.05);
+    animation: float 1s infinite alternate;
+}
+
+@keyframes float {
+    0% { transform: scale(1.05) translateY(0); }
+    100% { transform: scale(1.05) translateY(-10px); }
+}
+
+/* ------------------ INNER CARD & FLIP ------------------ */
+.inner-card {
+    width: 100%;
+    height: 350px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+    border-radius: 16px;
+}
+
+/* FLIPPED STATE */
+.inner-card.flipped {
+    transform: rotateY(180deg);
+}
+
+/* ------------------ CARD SIDES ------------------ */
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.card-front {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--card-bg);
+    z-index: 2;
+}
+
+.card-front img {
+    width: 130px;
+    height: 130px;
+    filter: drop-shadow(0 5px 8px rgba(0,0,0,0.25));
+    transition: all 0.3s ease;
+}
+
+.card-back {
+    background: var(--card-back-bg);
+    transform: rotateY(180deg);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+}
+
+.card-back .back-sprite {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: 10px;
+    right: 10px;
+    pointer-events: none;
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
+    transition: transform 0.3s ease;
+}
+
+.inner-card.flipped .back-sprite {
+    animation: bounce 1.2s infinite alternate;
+}
+
+.card-back:hover .back-sprite {
+    transform: translateY(-5px);
+}
+
